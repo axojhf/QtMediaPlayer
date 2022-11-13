@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019-2021 WangBin <wbsecg1 at gmail.com>
+ * Copyright (c) 2019-2022 WangBin <wbsecg1 at gmail.com>
  * This file is part of MDK
  * MDK SDK: https://github.com/wang-bin/mdk-sdk
  * Free for opensource softwares or non-commercial use.
@@ -57,8 +57,9 @@ struct mdkMetalRenderAPI {
     const void* texture; // optional. id<MTLTexture>. if not null, device can be null. usually for offscreen rendering. render target for MTLRenderPassDescriptor if encoder is not provided by user. set once for offscreen rendering
     const void* opaque; // optional. callback opaque
     const void* (*currentRenderTarget)(const void* opaque); // optional. usually for on screen rendering. return id<MTLTexture>.
+    const void* layer; // optional. CAMetalLayer only used for appling colorspace parameters for hdr/sdr videos.
     // no encoder because we need own render pass
-    const void* reserved[2];
+    const void* reserved[1];
 
 /***
   Render Context Creation Options.
@@ -93,6 +94,7 @@ struct mdkD3D11RenderAPI {
     int buffers; /* UWP must >= 2. */
     int adapter; /* adapter index */
     float feature_level; /* 0 is the highest */
+    const char* vendor; /* since v0.17.0 */
 };
 #endif
 
